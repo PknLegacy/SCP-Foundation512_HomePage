@@ -1,4 +1,4 @@
-// Page Navigation
+// =================== Navbar Navigation ===================
 document.querySelectorAll('.navbar li').forEach(item => {
     item.addEventListener('click', () => {
         let page = item.getAttribute('data-page');
@@ -7,14 +7,14 @@ document.querySelectorAll('.navbar li').forEach(item => {
     });
 });
 
-// Loader beim Start
+// =================== Loader beim Start ===================
 window.addEventListener('load', () => {
     setTimeout(() => {
         document.getElementById('loader').style.display = 'none';
     }, 1500);
 });
 
-// JSON Loading for Boxes
+// =================== JSON Loading for Boxes ===================
 document.querySelectorAll('.box').forEach(box => {
     box.addEventListener('click', () => {
         const jsonFile = box.getAttribute('data-json');
@@ -37,13 +37,13 @@ document.querySelectorAll('.box').forEach(box => {
     });
 });
 
-// Back Button → immer zurück zu "home"
+// =================== Back Button (JSON zurück zu Home) ===================
 function goBack() {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById('home').classList.add('active');
 }
 
-// SCP Files aus JSON laden
+// =================== SCP Files aus JSON laden ===================
 document.addEventListener("DOMContentLoaded", () => {
   const scpList = document.getElementById("scp-list");
 
@@ -62,6 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .catch(error => console.error("Error loading SCP data:", error));
 });
+
 // =================== Secure Page Handling ===================
 (function () {
   const homePage      = document.getElementById("home");
@@ -111,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function closeSecure() {
-    showPage(homePage);
+    showPage(homePage); // <-- direkt zurück ohne Animation
   }
 
   if (scpBox) {
