@@ -304,7 +304,7 @@ Every Training Protocol is iterative, adapting with each new Incident Report. Th
 
 <!-- SECURE -->
 <section id="secure" class="page">
-  <!-- Neue Ladeanimation -->
+  <!-- Neue Ladeanimation (nur beim Öffnen) -->
   <div id="secure-loader" class="loader" style="display:none;">
     <p>Loading<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></p>
   </div>
@@ -371,10 +371,13 @@ Every Training Protocol is iterative, adapting with each new Incident Report. Th
           secureText.textContent = "⚠ Fehler beim Laden von secure.json:\n" + err.message;
           console.error(err);
         });
-    }, 3000); // 3 Sekunden Ladeanimation
+    }, 3000); // 3 Sekunden Ladeanimation (nur beim Öffnen)
   }
 
+  // ❌ keine Ladeanimation beim Zurückgehen
   function closeSecure() {
+    secureLoader.style.display = "none";
+    secureContent.style.display = "none";
     showPage(homePage);
   }
 
