@@ -62,3 +62,63 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .catch(error => console.error("Error loading SCP data:", error));
 });
+// =================== Secure Page Handling ===================
+(function () {
+  const homePage      = document.getElementById("home");
+  const securePage    = document.getElementById("secure");
+  const secureContent = document.getElementById("secure-content");
+  const secureText    = document.getElementById("secure-text");
+  const backBtn       = document.getElementById("back-btn");
+  const scpBox        = document.getElementById("scp-box"); // Box zum Öffnen
+
+  function fetchJSONWithTimeout(url, timeoutMs = 10000) {
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), timeoutMs);
+    return fetch(url, { signal: ctrl.signal })
+      .then(res => {
+        clearTimeout(t);
+        if (!res.ok) throw new Error("HTTP " + res.status + " for " + url);
+        return res.json();
+      });
+  }
+
+  function extractMessage(data) {
+    if (typeof data === "string") return data;
+    const m = data.message || data.text || data.content || data.body || data.description;
+    if (m) return String(m);
+    if (data.title && data.text) return `${data.title}\n\n${data.text}`;
+    return JSON.stringify(data, null, 2);
+  }
+
+  function showPage(pageEl) {
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    pageEl.classList.add("active");
+  }
+
+  function openSecure() {
+    showPage(securePage);
+    secureContent.style.display = "block";
+    secureText.textContent = "Loading...";
+
+    fetchJSONWithTimeout("secure.json", 12000)
+      .then(data => {
+        secureText.textContent = extractMessage(data);
+      })
+      .catch(err => {
+        secureText.textContent = "⚠ Fehler beim Laden von secure.json:\n" + err.message;
+        console.error(err);
+      });
+  }
+
+  function closeSecure() {
+    showPage(homePage);
+  }
+
+  if (scpBox) {
+    scpBox.addEventListener("click", openSecure);
+  } else {
+    console.warn("Hinweis: #scp-box wurde nicht gefunden.");
+  }
+
+  backBtn.addEventListener("click", closeSecure);
+})();
