@@ -7,7 +7,7 @@ document.querySelectorAll('.navbar li').forEach(item => {
     });
 });
 
-// Loader → nur einmal beim Start
+// Loader beim Start
 window.addEventListener('load', () => {
     setTimeout(() => {
         document.getElementById('loader').style.display = 'none';
@@ -22,9 +22,11 @@ document.querySelectorAll('.box').forEach(box => {
         fetch(`json/${jsonFile}`)
             .then(response => response.json())
             .then(data => {
+                // Fill Content
                 document.getElementById('json-title').textContent = data.title;
                 document.getElementById('json-text').textContent = data.text;
 
+                // Switch to JSON Page
                 document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
                 document.getElementById('json-content').classList.add('active');
             })
@@ -35,7 +37,7 @@ document.querySelectorAll('.box').forEach(box => {
     });
 });
 
-// Back Button → zurück zu Home
+// Back Button → immer zurück zu "home"
 function goBack() {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById('home').classList.add('active');
