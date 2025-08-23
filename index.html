@@ -279,6 +279,71 @@ Every Training Protocol is iterative, adapting with each new Incident Report. Th
   backBtn.addEventListener("click", closeSecure);
 })();
 </script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Foundation Security Terminal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <div class="navbar">
+    <div class="logo">SCP-512</div>
+    <ul>
+      <li data-page="home">Home</li>
+      <li data-page="files">Files</li>
+      <li data-page="search">Search</li>
+      <li data-page="credits">Credits</li>
+    </ul>
+  </div>
+
+  <!-- Seiten -->
+  <section id="home" class="page active">
+    <h1>Welcome to Foundation 512</h1>
+    <p>This is the secure terminal entry.</p>
+    <img src="assets/home.jpg" alt="Home Image" class="home-img">
+  </section>
+
+  <section id="files" class="page">
+    <h1>SCP Files</h1>
+    <ul id="scp-list"></ul>
+  </section>
+
+  <section id="search" class="page">
+    <h1>Search Archive</h1>
+    <div class="container">
+      <div class="box" data-json="example.json">
+        <h2>Example File</h2>
+        <p>Click to open.</p>
+      </div>
+      <!-- weitere Boxen -->
+    </div>
+  </section>
+
+  <section id="credits" class="page">
+    <h1>Credits</h1>
+    <p>Created by O5 Council Member.<br>
+    Join our Discord: <a href="https://discord.gg/6RRNXUGRAk" target="_blank" style="color:red;">Click Here</a></p>
+  </section>
+
+  <!-- JSON-Content-Seite -->
+  <section id="json-content" class="page">
+    <h1 id="json-title"></h1>
+    <p id="json-text"></p>
+    <button onclick="goBack()" style="margin-top:20px; padding:10px 20px; background:#e74c3c; border:none; color:white; border-radius:10px; cursor:pointer;">Back</button>
+  </section>
+
+  <!-- Loader -->
+  <div id="loader" class="loader">
+    <p>Loading...</p>
+    <div class="scan-line"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
 
 </body>
 </html>
