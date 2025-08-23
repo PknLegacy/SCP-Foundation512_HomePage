@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Foundation Security Terminal</title>
     <link rel="stylesheet" href="style.css">
+    <script src="fullscreen.js"></script>
 </head>
 <body>
-    <!-- Loader -->
+    <!-- Loader (Terminal-Style) -->
     <div id="loader" class="loader">
         <div class="scan-line"></div>
         <p>Security Clearance Check...</p>
@@ -25,7 +26,6 @@
 
     <!-- Content -->
     <main id="content">
-
         <!-- Home -->
         <section id="home" class="page active">
             <h1>Welcome to Foundation Security Terminal</h1>
@@ -40,7 +40,6 @@
         <!-- SCP Files -->
         <section id="files" class="page">
             <h1>SCP Files</h1>
-            <h1>Updates soon Information down here for other Files</h1>
             <ul id="scp-list"></ul>
         </section>
 
@@ -75,7 +74,7 @@
                     <h2>Training Protocols</h2>
                     <p>Guidelines and materials for Foundation training.</p>
                 </div>
-                <!-- Erweiterte animierte Boxen -->
+                <!-- NEU: Die Spezial-Boxen direkt HINTER den alten in DER GLEICHEN CONTAINER -->
                 <div class="box special" data-action="showGlobalTime">
                     <h2>Globale Uhrzeiten</h2>
                     <p>Sieh dir weltweite Uhrzeiten in Echtzeit an.</p>
@@ -101,13 +100,9 @@
             <p id="json-text"></p>
             <button onclick="goBack()">← Back</button>
         </section>
-
         <!-- Modal für Spezialboxen -->
         <div id="modal" class="modal" style="display:none;"></div>
-
     </main>
-
-    <script src="fullscreen.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
