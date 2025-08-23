@@ -1,4 +1,4 @@
-// Navigation Handling
+// Page Navigation
 document.querySelectorAll('.navbar li').forEach(item => {
     item.addEventListener('click', () => {
         let page = item.getAttribute('data-page');
@@ -23,8 +23,8 @@ document.querySelectorAll('.box').forEach(box => {
             .then(response => response.json())
             .then(data => {
                 // Fill Content
-                document.getElementById('json-title').textContent = data.title || "Untitled File";
-                document.getElementById('json-text').textContent = data.text || "No content found.";
+                document.getElementById('json-title').textContent = data.title;
+                document.getElementById('json-text').textContent = data.text;
 
                 // Switch to JSON Page
                 document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -33,7 +33,6 @@ document.querySelectorAll('.box').forEach(box => {
             .catch(err => {
                 document.getElementById('json-title').textContent = "Error";
                 document.getElementById('json-text').textContent = "Could not load file.";
-                console.error("JSON Load Error:", err);
             });
     });
 });
@@ -44,7 +43,7 @@ function goBack() {
     document.getElementById('home').classList.add('active');
 }
 
-// SCP Files aus data.json laden
+// SCP Files aus JSON laden
 document.addEventListener("DOMContentLoaded", () => {
   const scpList = document.getElementById("scp-list");
 
@@ -56,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
         li.innerHTML = `
           <strong>${scp.id}:</strong> ${scp.title}<br>
           <em>${scp.description}</em><br>
-          <a href="${scp.link}" style="color: red;" target="_blank">[Open File]</a>
+          <a href="${scp.link}" style="color: red;">[Open File]</a>
         `;
         scpList.appendChild(li);
       });
