@@ -3,12 +3,11 @@ body {
     font-family: Arial, sans-serif;
     background-color: #0a0a0a;
     color: white;
-
-    /* 👉 Scrollen erlauben */
     overflow-y: auto;
-    -webkit-overflow-scrolling: touch; /* für iOS/Android smooth */
+    -webkit-overflow-scrolling: touch;
 }
 
+/* Navbar */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -17,7 +16,7 @@ body {
     background-color: #111;
     position: sticky;
     top: 0;
-    z-index: 10; /* bleibt immer sichtbar */
+    z-index: 10;
 }
 
 .logo {
@@ -70,9 +69,12 @@ body {
     100% { transform: translateY(-100px); }
 }
 
+/* Seiten */
 .page {
     display: none;
     padding: 20px;
+    max-height: calc(100vh - 60px);
+    overflow-y: auto;
 }
 
 .page.active {
@@ -84,13 +86,13 @@ body {
     margin-top: 20px;
 }
 
+/* Boxen */
 .container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 30px;
     margin-top: 30px;
 }
-
 .box {
     background: #1a1a1a;
     border: 2px solid #e74c3c;
@@ -115,47 +117,59 @@ body {
     font-size: 0.9em;
     color: #cccccc;
 }
-.page {
-    display: none;
-    padding: 20px;
-    max-height: calc(100vh - 60px); /* Platz abziehen für Navbar */
-    overflow-y: auto;              /* nur Inhalte scrollen */
+
+/* Spezialboxen */
+.box.special {
+    border: 2px solid #3498db;
+    background: #151c22;
+}
+.box.special h2 {
+    color: #3498db;
 }
 
-.page.active {
-    display: block;
+/* Modal für Spezialboxen */
+.modal {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(10,17,30,0.97);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    flex-direction: column;
+    color: #fff;
+    font-family: monospace;
+    animation: modalIn 0.3s;
 }
-.container {
+@keyframes modalIn { from { opacity:0; } to { opacity:1; } }
+
+.modal-content {
+    background: #1a1a1a;
+    padding: 30px 30px 20px 30px;
+    border-radius: 18px;
+    box-shadow: 0 0 32px #1a1a1a99;
+    min-width: 300px;
+    max-width: 90vw;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.clocks, .users {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 18px;
+    margin-bottom: 12px;
 }
-
-.box {
+.clock, .user {
     background: #222;
-    color: #fff;
-    padding: 24px 18px;
-    border-radius: 12px;
-    width: 250px;
-    cursor: pointer;
-    transition: transform 0.2s;
+    padding: 14px;
+    border-radius: 8px;
+    min-width: 150px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
-.box:hover {
-    transform: scale(1.04) translateY(-4px);
-    box-shadow: 0 8px 32px #0006;
-}
-.box.extra {
-    background: #333a;
-    border: 1px solid #444;
-}
-.modal {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background: #111a; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; z-index: 9999;
-}
-.modal h2 { margin-bottom: 16px; }
-.clocks, .users { display: flex; gap: 20px; }
-.clock, .user { background: #222; padding: 14px; border-radius: 8px; display: flex; align-items: center; gap: 10px; }
 
 .animation-bar {
     width: 100px; height: 8px; background: #444;
@@ -172,7 +186,8 @@ body {
     0% { left: 0; }
     100% { left: 80px; }
 }
-.loader {
+
+.loader-modal {
     border: 5px solid #eee;
     border-top: 5px solid #0af;
     border-radius: 50%;
@@ -183,4 +198,15 @@ body {
 @keyframes spin {
     0% {transform: rotate(0deg);}
     100% {transform: rotate(360deg);}
+}
+
+.modal button {
+    margin-top: 24px;
+    padding: 8px 24px;
+    background: #e74c3c;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
 }
