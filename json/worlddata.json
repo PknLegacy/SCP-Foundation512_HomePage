@@ -3,25 +3,24 @@
     "type": "image",
     "title": "SCP-001-Bild",
     "description": "Das ursprüngliche SCP-001 Bild.",
-    "file": "images/scp-001.jpg"
+    "file": "assets/scp-001.jpg"
   },
   {
     "type": "video",
     "title": "Containment-Kamera",
     "description": "Live-Mitschnitt einer SCP-Containment-Kamera.",
-    "file": "videos/containment.mp4"
+    "file": "assets/containment.mp4"
   },
   {
     "type": "document",
     "title": "Sicherheitsprotokoll 512-A",
     "description": "PDF-Dokument mit Sicherheitsprotokollen.",
-    "file": "docs/protokoll-512A.pdf"
+    "file": "assets/protokoll-512A.pdf"
   },
   {
     "type": "image",
     "title": "Satellitenbild",
     "description": "Satellitenbild des Sektors.",
-    "file": "images/satellite.png"
+    "file": "assets/satellite.png"
   }
-  // ... beliebig viele weitere
 ]
