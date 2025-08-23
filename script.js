@@ -95,3 +95,109 @@ setTimeout(function() {
     fullscreenActivated = true;
   }
 }, 5000);
+// Globale Uhrzeiten (Beispiel!)
+const globalTimes = [
+    { city: "Berlin", offset: 2, image: "berlin.png" },
+    { city: "New York", offset: -4, image: "ny.png" },
+    { city: "Tokyo", offset: 9, image: "tokyo.png" },
+    // Weitere Städte...
+];
+
+// Beispiel User-Daten (mit Bild)
+const users = [
+    { name: "Dr. Bright", image: "bright.jpg", info: "SCP Lead Scientist" },
+    { name: "Agent Smith", image: "smith.jpg", info: "Security Officer" },
+    // ...
+];
+
+function showGlobalTimeBox() {
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    let html = `<h2>Globale Uhrzeiten</h2><div class="clocks">`;
+    globalTimes.forEach(tz => {
+        html += `<div class="clock">
+            <img src="${tz.image}" alt="${tz.city}" width="40"/>
+            <div><strong>${tz.city}</strong> <span id="clock-${tz.city}"></span></div>
+        </div>`;
+    });
+    html += `</div><button onclick="closeModal()">Schließen</button>`;
+    modal.innerHTML = html;
+    document.body.appendChild(modal);
+
+    globalTimes.forEach(tz => {
+        setInterval(() => {
+            const now = new Date();
+            now.setUTCHours(now.getUTCHours() + tz.offset);
+            document.getElementById(`clock-${tz.city}`).textContent =
+                now.toLocaleTimeString();
+        }, 1000);
+    });
+}
+
+function showSecurityProtocol() {
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.innerHTML = `
+        <h2>Sicherheitsprotokoll</h2>
+        <div class="animation-bar"></div>
+        <p>Protokoll: Nur autorisierte Nutzer. Alle Aktionen werden protokolliert.</p>
+        <button onclick="closeModal()">Schließen</button>
+    `;
+    document.body.appendChild(modal);
+}
+
+function showUserInfo() {
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    let html = `<h2>Nutzer-Informationen</h2><div class="users">`;
+    users.forEach(user => {
+        html += `<div class="user">
+            <img src="${user.image}" alt="${user.name}" width="60"/>
+            <div>
+                <strong>${user.name}</strong><br/>
+                <span>${user.info}</span>
+            </div>
+        </div>`;
+    });
+    html += `</div><button onclick="closeModal()">Schließen</button>`;
+    modal.innerHTML = html;
+    document.body.appendChild(modal);
+}
+
+function downloadProtocol() {
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.innerHTML = `
+        <h2>Download wird vorbereitet...</h2>
+        <div class="loader"></div>
+        <p>Bitte warten...</p>
+    `;
+    document.body.appendChild(modal);
+    setTimeout(() => {
+        window.location.href = 'Sicherheitsprotokoll_V1.22.1.pdf';
+        closeModal();
+    }, 2500);
+}
+
+function closeModal() {
+    document.querySelectorAll('.modal').forEach(m => m.remove());
+}
+
+document.querySelectorAll('.box.extra').forEach(box => {
+    box.addEventListener('click', function() {
+        switch (box.dataset.action) {
+            case 'showGlobalTime':
+                showGlobalTimeBox();
+                break;
+            case 'showSecurityProtocol':
+                showSecurityProtocol();
+                break;
+            case 'showUserInfo':
+                showUserInfo();
+                break;
+            case 'downloadProtocol':
+                downloadProtocol();
+                break;
+        }
+    });
+});
