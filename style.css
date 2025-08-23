@@ -1,13 +1,9 @@
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: #0a0a0a;
     color: white;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    /* wichtig: Body darf scrollen */
-    overflow: hidden;
 }
 
 .navbar {
@@ -18,7 +14,6 @@ body {
     background-color: #111;
     position: sticky;
     top: 0;
-    z-index: 10;
 }
 
 .logo {
@@ -43,67 +38,47 @@ body {
     color: red;
 }
 
-/* Content Wrapper → nur hier scrollen */
-.content {
-    flex: 1;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch; /* wichtig für iOS */
-    padding: 20px;
+/* Loader */
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
 }
 
-/* Seiten */
+.scan-line {
+    width: 80%;
+    height: 2px;
+    background: red;
+    animation: scan 2s infinite;
+}
+
+@keyframes scan {
+    0% { transform: translateY(-100px); }
+    50% { transform: translateY(100px); }
+    100% { transform: translateY(-100px); }
+}
+
 .page {
     display: none;
+    padding: 20px;
 }
 
 .page.active {
     display: block;
 }
 
-/* Scrollbar Styling */
-.content::-webkit-scrollbar {
-    width: 10px;
-}
-
-.content::-webkit-scrollbar-track {
-    background: #111;
-}
-
-.content::-webkit-scrollbar-thumb {
-    background: #e74c3c;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(231, 76, 60, 0.6);
-}
-
-.content::-webkit-scrollbar-thumb:hover {
-    background: #c0392b;
-}
-
-/* Glow-Effekt am rechten Rand beim Scrollen */
-.content::after {
-    content: "";
-    position: fixed;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 5px;
-    pointer-events: none;
-    background: linear-gradient(to bottom, rgba(231, 76, 60, 0.5), transparent);
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.content:active::after,
-.content:focus::after,
-.content:hover::after {
-    opacity: 1;
-}
-
 .home-img {
     max-width: 400px;
     margin-top: 20px;
 }
-
 .container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
