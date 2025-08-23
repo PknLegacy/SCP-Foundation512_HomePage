@@ -206,3 +206,39 @@ document.querySelectorAll('.box.special').forEach(box => {
         }
     });
 });
+document.addEventListener("DOMContentLoaded", () => {
+  const worldDataDiv = document.getElementById("worlddata-list");
+  if (!worldDataDiv) return;
+
+  fetch("json/worlddata.json")
+    .then(res => res.json())
+    .then(dataArr => {
+      worldDataDiv.innerHTML = dataArr.map(item => {
+        let content = "";
+        if (item.type === "image") {
+          content = `<img src="${item.file}" alt="${item.title}">`;
+        } else if (item.type === "video") {
+          content = `
+            <video controls>
+              <source src="${item.file}" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          `;
+        } else if (item.type === "document") {
+          content = `
+            <a href="${item.file}" target="_blank" download>⬇ Download Document</a>
+          `;
+        }
+        return `
+          <div class="wd-entry">
+            <h3>${item.title}</h3>
+            <p>${item.description}</p>
+            ${content}
+          </div>
+        `;
+      }).join("");
+    })
+    .catch(err => {
+      worldDataDiv.innerHTML = "<div style='color:red'>Fehler beim Laden der Weltdaten.</div>";
+    });
+});
