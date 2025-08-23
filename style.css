@@ -125,3 +125,26 @@ body {
 .page.active {
     display: block;
 }
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.box {
+    background: #222;
+    color: #fff;
+    padding: 24px 18px;
+    border-radius: 12px;
+    width: 250px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.box:hover {
+    transform: scale(1.04) translateY(-4px);
+    box-shadow: 0 8px 32px #0006;
+}
+.box.extra {
+    background: #333a;
+    border: 1px solid #444;
+}
