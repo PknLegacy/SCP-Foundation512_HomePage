@@ -281,3 +281,19 @@ document.addEventListener("DOMContentLoaded", () => {
       worldDataDiv.innerHTML = "<div style='color:red'>Fehler beim Laden der Weltdaten.</div>";
     });
 });
+// Download-Animation & Start
+document.addEventListener("DOMContentLoaded", () => {
+    const dlBox = document.getElementById("download-box");
+    const modal = document.getElementById("download-modal");
+    if (!dlBox || !modal) return;
+    dlBox.addEventListener("click", () => {
+        modal.style.display = "flex";
+        setTimeout(() => {
+            // Hier den Pfad zu deiner Installationsdatei anpassen:
+            window.location.href = "downloads/SCP_System512_V.31.04.2.exe";
+            setTimeout(() => {
+                modal.style.display = "none";
+            }, 1200);
+        }, 2200); // 2,2 Sekunden Animation
+    });
+});
