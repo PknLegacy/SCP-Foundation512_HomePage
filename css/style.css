@@ -1,0 +1,19 @@
+body {
+  font-family: 'Orbitron', monospace;
+  background: #0a0a0a;
+  color: #00ff41;
+  overflow: hidden;
+  position: relative;
+}
+/* nur ein kleiner Auszug, restlicher Stil wie im gelieferten HTML */
+#more-btn {
+  margin-top: 20px;
+  background: #b30000;
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+#more-btn:hover { background:#ff3333; }
