@@ -119,8 +119,6 @@
 </body>
 </html>
 
-//2025-09-07
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -128,46 +126,75 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Lunar Eclipse Warning</title>
   <style>
-    body { margin:0; font-family:Arial, sans-serif; }
-    /* floating warning button */
+    body { margin:0; font-family:Arial, Helvetica, sans-serif; background:#f9f9f9; }
+
+    /* floating warning box */
     #warn-btn {
       position:fixed; top:20px; right:20px;
       background:#b30000; color:#fff;
-      padding:10px 16px; border-radius:6px;
-      font-weight:bold; font-size:14px;
-      cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,0.3);
+      padding:14px 22px; border-radius:8px;
+      font-weight:bold; font-size:16px;
+      cursor:pointer; box-shadow:0 6px 18px rgba(0,0,0,0.4);
       display:none; z-index:1000;
+      border:2px solid #fff;
+      animation:pulse 2s infinite;
     }
-    /* overlay */
+
+    @keyframes pulse {
+      0% { box-shadow:0 0 0 0 rgba(179,0,0,0.6); }
+      70% { box-shadow:0 0 0 12px rgba(179,0,0,0); }
+      100% { box-shadow:0 0 0 0 rgba(179,0,0,0); }
+    }
+
+    /* overlay background */
     #overlay {
-      position:fixed; inset:0; background:rgba(0,0,0,0.75);
+      position:fixed; inset:0;
+      background:rgba(0,0,0,0.75);
       display:none; align-items:center; justify-content:center;
       z-index:2000;
     }
+
+    /* modal window */
     .modal {
-      background:#111; color:#eee; max-width:600px; width:90%;
-      padding:20px; border-radius:10px; box-shadow:0 6px 20px rgba(0,0,0,0.8);
+      background:#fff; color:#111;
+      max-width:680px; width:92%;
+      padding:28px; border-radius:12px;
+      box-shadow:0 10px 40px rgba(0,0,0,0.7);
+      border-top:8px solid #b30000;
     }
-    .modal h2 { margin-top:0; color:#ff5555; }
-    .modal p { line-height:1.5; }
+    .modal h2 {
+      margin-top:0; font-size:22px;
+      color:#b30000;
+      border-bottom:1px solid #ccc;
+      padding-bottom:8px;
+    }
+    .modal p { line-height:1.6; margin:14px 0; font-size:15px; }
+
     .close-btn {
-      margin-top:15px; background:#b30000; color:#fff;
-      border:none; padding:10px 16px; border-radius:6px;
-      cursor:pointer; font-weight:bold;
+      margin-top:18px; background:#b30000; color:#fff;
+      border:none; padding:12px 20px; border-radius:6px;
+      cursor:pointer; font-weight:bold; font-size:15px;
+      float:right;
     }
   </style>
 </head>
 <body>
 
-  <div id="warn-btn">⚠️ Warning</div>
+  <div id="warn-btn">⚠️ URGENT WARNING</div>
 
   <div id="overlay">
     <div class="modal">
       <h2>Lunar Eclipse Advisory — September 7, 2025</h2>
-      <p><strong>Event:</strong> A total lunar eclipse (“Blood Moon”) is occurring tonight. Conditions and timing depend on your location.</p>
-      <p><strong>Advisory:</strong> SCP-6996 (the Color Red) has been statistically linked to a higher rate of incidents during such phenomena. Remain alert this evening.</p>
-      <p><strong>Recommendations:</strong> Avoid unnecessary travel after dusk, stay indoors where possible, do not approach unusual red lights or surfaces, and report any anomalies immediately to local authorities.</p>
+      <p><strong>Event:</strong> A total lunar eclipse (“Blood Moon”) is taking place tonight. Visibility depends on your location.</p>
+      <p><strong>Advisory:</strong> SCP-6996 (the Color Red) has been linked to increased risks during lunar eclipses. Incidents involving unusual red phenomena have been documented repeatedly. Extreme caution is advised this evening.</p>
+      <p><strong>Recommendations:</strong>  
+        • Stay indoors after dusk where possible. <br>
+        • Avoid unnecessary travel. <br>
+        • Do not approach or interact with unfamiliar red lights or surfaces. <br>
+        • Report any anomalies immediately to local authorities.
+      </p>
       <button class="close-btn" id="close-btn">Back</button>
+      <div style="clear:both"></div>
     </div>
   </div>
 
@@ -184,4 +211,3 @@
   </script>
 </body>
 </html>
-
