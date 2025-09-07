@@ -177,12 +177,16 @@
     }
     .modal p { line-height:1.6; margin:14px 0; font-size:15px; }
 
-    .close-btn {
-      margin-top:18px; background:#b30000; color:#fff;
-      border:none; padding:12px 20px; border-radius:6px;
-      cursor:pointer; font-weight:bold; font-size:15px;
-      float:right;
+    .btn {
+      margin-top:18px; 
+      border:none; padding:12px 20px; 
+      border-radius:6px; cursor:pointer; 
+      font-weight:bold; font-size:15px;
     }
+    .close-btn { background:#b30000; color:#fff; float:right; }
+    .more-btn { background:#444; color:#fff; float:left; }
+
+    .btn:hover { opacity:0.9; }
   </style>
 </head>
 <body>
@@ -200,8 +204,12 @@
         • Do not approach or interact with unfamiliar red lights or surfaces. <br>
         • Report any anomalies immediately to local authorities.
       </p>
-      <button class="close-btn" id="close-btn">Back</button>
-      <div style="clear:both"></div>
+
+      <!-- new buttons -->
+      <div style="margin-top:25px; display:flex; justify-content:space-between; align-items:center; gap:10px; clear:both;">
+        <button class="more-btn btn" id="more-btn">More Security Updates and Warnings</button>
+        <button class="close-btn btn" id="close-btn">Back</button>
+      </div>
     </div>
   </div>
 
@@ -209,12 +217,18 @@
     const warnBtn = document.getElementById('warn-btn');
     const overlay = document.getElementById('overlay');
     const closeBtn = document.getElementById('close-btn');
+    const moreBtn = document.getElementById('more-btn');
 
     // show warning button after 5 sec
     setTimeout(() => { warnBtn.style.display = 'block'; }, 5000);
 
     warnBtn.addEventListener('click', () => { overlay.style.display = 'flex'; });
     closeBtn.addEventListener('click', () => { overlay.style.display = 'none'; });
+
+    // redirect to more updates page
+    moreBtn.addEventListener('click', () => {
+      window.location.href = "Morehtmls/securityandupdates.html";
+    });
   </script>
 </body>
 </html>
