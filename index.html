@@ -119,3 +119,69 @@
 </body>
 </html>
 
+//2025-09-07
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Lunar Eclipse Warning</title>
+  <style>
+    body { margin:0; font-family:Arial, sans-serif; }
+    /* floating warning button */
+    #warn-btn {
+      position:fixed; top:20px; right:20px;
+      background:#b30000; color:#fff;
+      padding:10px 16px; border-radius:6px;
+      font-weight:bold; font-size:14px;
+      cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,0.3);
+      display:none; z-index:1000;
+    }
+    /* overlay */
+    #overlay {
+      position:fixed; inset:0; background:rgba(0,0,0,0.75);
+      display:none; align-items:center; justify-content:center;
+      z-index:2000;
+    }
+    .modal {
+      background:#111; color:#eee; max-width:600px; width:90%;
+      padding:20px; border-radius:10px; box-shadow:0 6px 20px rgba(0,0,0,0.8);
+    }
+    .modal h2 { margin-top:0; color:#ff5555; }
+    .modal p { line-height:1.5; }
+    .close-btn {
+      margin-top:15px; background:#b30000; color:#fff;
+      border:none; padding:10px 16px; border-radius:6px;
+      cursor:pointer; font-weight:bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="warn-btn">⚠️ Warning</div>
+
+  <div id="overlay">
+    <div class="modal">
+      <h2>Lunar Eclipse Advisory — September 7, 2025</h2>
+      <p><strong>Event:</strong> A total lunar eclipse (“Blood Moon”) is occurring tonight. Conditions and timing depend on your location.</p>
+      <p><strong>Advisory:</strong> SCP-6996 (the Color Red) has been statistically linked to a higher rate of incidents during such phenomena. Remain alert this evening.</p>
+      <p><strong>Recommendations:</strong> Avoid unnecessary travel after dusk, stay indoors where possible, do not approach unusual red lights or surfaces, and report any anomalies immediately to local authorities.</p>
+      <button class="close-btn" id="close-btn">Back</button>
+    </div>
+  </div>
+
+  <script>
+    const warnBtn = document.getElementById('warn-btn');
+    const overlay = document.getElementById('overlay');
+    const closeBtn = document.getElementById('close-btn');
+
+    // show warning button after 5 sec
+    setTimeout(() => { warnBtn.style.display = 'block'; }, 5000);
+
+    warnBtn.addEventListener('click', () => { overlay.style.display = 'flex'; });
+    closeBtn.addEventListener('click', () => { overlay.style.display = 'none'; });
+  </script>
+</body>
+</html>
+
