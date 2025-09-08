@@ -1,455 +1,213 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZUGANG VERWEIGERT - SCP Foundation</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <title>Security Updates and Warnings</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    body {
+      margin: 0;
+      background: #0d1117;
+      color: #f1f1f1;
+      font-family: Arial, sans-serif;
+      user-select: none; /* Markieren deaktivieren */
+      overflow: hidden; /* Vollbild Look */
+    }
 
-        body {
-            font-family: 'Courier Prime', monospace;
-            background: #000;
-            color: #0f0;
-            overflow: hidden;
-            position: relative;
-        }
+    .update-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1rem;
+      padding: 20px;
+    }
+    .update-box {
+      background: #1e1e1e;
+      color: #f1f1f1;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+      transition: transform 0.2s;
+      cursor: pointer;
+    }
+    .update-box:hover {
+      transform: scale(1.05);
+      background: #292929;
+    }
+    .update-title {
+      font-size: 1.2em;
+      margin-bottom: 8px;
+      color: #58a6ff;
+    }
+    .update-desc {
+      font-size: 0.9em;
+      color: #ccc;
+    }
 
-        .container {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: radial-gradient(circle, #001a00, #000);
-        }
+    /* JSON Viewer */
+    #json-viewer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(13, 17, 23, 0.98);
+      color: #fff;
+      display: none;
+      flex-direction: column;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    #json-content {
+      flex: 1;
+      background: #161b22;
+      border-radius: 10px;
+      padding: 15px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      font-family: monospace;
+      color: #58a6ff;
+    }
+    #close-btn {
+      background: #ff4c4c;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    #close-btn:hover {
+      background: #e33;
+    }
 
-        .scan-lines::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(transparent 50%, rgba(0, 255, 0, 0.03) 50%);
-            background-size: 100% 4px;
-            pointer-events: none;
-            animation: scanlines 0.1s linear infinite;
-        }
-
-        @keyframes scanlines {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(4px); }
-        }
-
-        .glitch {
-            animation: glitch 0.3s infinite;
-        }
-
-        @keyframes glitch {
-            0%, 100% { transform: translateX(0); }
-            20% { transform: translateX(-2px); }
-            40% { transform: translateX(-1px); }
-            60% { transform: translateX(1px); }
-            80% { transform: translateX(2px); }
-        }
-
-        .terminal {
-            background: rgba(0, 20, 0, 0.9);
-            border: 2px solid #0f0;
-            border-radius: 0;
-            padding: 20px;
-            max-width: 800px;
-            width: 90%;
-            box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
-            position: relative;
-        }
-
-        .terminal::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #0f0, transparent, #0f0);
-            z-index: -1;
-            border-radius: 0;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            border-bottom: 1px solid #0f0;
-            padding-bottom: 15px;
-        }
-
-        .scp-logo {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #ff0000;
-            text-shadow: 0 0 10px #ff0000;
-            margin-bottom: 10px;
-        }
-
-        .warning-screen {
-            text-align: center;
-            line-height: 1.6;
-        }
-
-        .warning-title {
-            color: #ff0000;
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-            text-shadow: 0 0 10px #ff0000;
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0.3; }
-        }
-
-        .warning-text {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            color: #ffff00;
-        }
-
-        .continue-btn {
-            background: transparent;
-            border: 2px solid #0f0;
-            color: #0f0;
-            padding: 10px 30px;
-            font-family: inherit;
-            font-size: 1rem;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: all 0.3s;
-        }
-
-        .continue-btn:hover {
-            background: #0f0;
-            color: #000;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
-        }
-
-        .loading-screen {
-            display: none;
-            text-align: center;
-        }
-
-        .loading-title {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            color: #0f0;
-        }
-
-        .loading-bar-container {
-            width: 100%;
-            height: 30px;
-            border: 2px solid #0f0;
-            margin-bottom: 20px;
-            position: relative;
-            background: #001a00;
-        }
-
-        .loading-bar {
-            height: 100%;
-            background: linear-gradient(90deg, #0f0, #00ff00, #0f0);
-            width: 0%;
-            transition: width 0.1s;
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-        }
-
-        .loading-percent {
-            font-size: 1.2rem;
-            color: #0f0;
-        }
-
-        .file-info {
-            margin-top: 20px;
-            color: #ffff00;
-            font-size: 0.9rem;
-        }
-
-        .video-container {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: #000;
-            z-index: 1000;
-        }
-
-        .video-player {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        .post-video-screen {
-            display: none;
-            text-align: center;
-        }
-
-        .classified-warning {
-            color: #ff0000;
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-            text-shadow: 0 0 10px #ff0000;
-        }
-
-        .close-btn {
-            background: #ff0000;
-            border: none;
-            color: #fff;
-            padding: 15px 40px;
-            font-family: inherit;
-            font-size: 1.1rem;
-            cursor: pointer;
-            margin-top: 20px;
-            text-shadow: none;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
-        }
-
-        .close-btn:hover {
-            background: #cc0000;
-        }
-
-        .typewriter {
-            overflow: hidden;
-            border-right: 2px solid #0f0;
-            white-space: nowrap;
-            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
-        }
-
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-
-        @keyframes blink-caret {
-            from, to { border-color: transparent; }
-            50% { border-color: #0f0; }
-        }
-
-        .fade-in {
-            animation: fadeIn 2s ease-in;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-    </style>
+    /* JSON Syntax Colors */
+    #json-content .key { color: #ff9800; }
+    #json-content .string { color: #4caf50; }
+    #json-content .number { color: #03a9f4; }
+    #json-content .boolean { color: #e91e63; }
+    #json-content .null { color: #9e9e9e; }
+  </style>
 </head>
 <body>
-    <div class="container scan-lines">
-        <div class="terminal fade-in">
-            <!-- Initial Warning Screen -->
-            <div id="warning-screen" class="warning-screen">
-                <div class="header">
-                    <div class="scp-logo glitch">SCP FOUNDATION</div>
-                    <div style="color: #0f0; font-size: 0.8rem;">SECURE • CONTAIN • PROTECT</div>
-                </div>
-                
-                <div class="warning-title">⚠ ZUGANG VERWEIGERT ⚠</div>
-                
-                <div class="warning-text">
-                    DIESE WEBSITE IST ILLEGAL UND NICHT MEHR FREI ZUGÄNGLICH
-                </div>
-                
-                <div class="warning-text">
-                    KLASSIFIZIERTE DOKUMENTE - NUR AUTORISIERTES PERSONAL
-                </div>
-                
-                <div class="warning-text">
-                    Falls Sie trotzdem darauf zugreifen können,<br>
-                    verlassen Sie SOFORT diese Website.
-                </div>
-                
-                <div class="warning-text" style="color: #ff0000; font-size: 0.9rem; margin-top: 25px;">
-                    Ihr Zugriff wird protokolliert und gemeldet.<br>
-                    Unbefugter Zugang ist strafbar.
-                </div>
-                
-                <button class="continue-btn" onclick="startLoading()">
-                    TROTZDEM FORTFAHREN [NICHT EMPFOHLEN]
-                </button>
-            </div>
 
-            <!-- Loading Screen -->
-            <div id="loading-screen" class="loading-screen">
-                <div class="loading-title typewriter">
-                    LADE GESCHÜTZTE DATEI CON.512.20-24-512
-                </div>
-                
-                <div class="loading-bar-container">
-                    <div id="loading-bar" class="loading-bar"></div>
-                </div>
-                
-                <div id="loading-percent" class="loading-percent">0%</div>
-                
-                <div class="file-info">
-                    <div>KLASSIFIZIERUNGSGRAD: KETER</div>
-                    <div>SICHERHEITSSTUFE: 4</div>
-                    <div>DATEIGRÖSSE: 847.3 MB</div>
-                    <div style="color: #ff0000; margin-top: 10px;">
-                        WARNUNG: Entschlüsselung kann nicht rückgängig gemacht werden
-                    </div>
-                </div>
-            </div>
+  <h1 style="text-align:center; padding: 10px 0;">Current Security Updates</h1>
+  <p style="text-align:center;">Click on an entry below to view detailed information.</p>
 
-            <!-- Post Video Warning Screen -->
-            <div id="post-video-screen" class="post-video-screen">
-                <div class="classified-warning">
-                    ⚠ KLASSIFIZIERTE INHALTE ANGEZEIGT ⚠
-                </div>
-                
-                <div style="color: #ffff00; margin-bottom: 15px;">
-                    Sie haben geschützte SCP Foundation Dateien eingesehen.
-                </div>
-                
-                <div style="color: #0f0; font-size: 0.9rem; margin-bottom: 15px;">
-                    Diese Informationen unterliegen höchster Geheimhaltungsstufe.<br>
-                    Unbefugte Weitergabe wird strafrechtlich verfolgt.
-                </div>
-                
-                <div style="color: #ff0000; font-size: 0.8rem; margin-bottom: 20px;">
-                    Ihr Zugriff wurde dokumentiert und an die Behörden übermittelt.<br>
-                    Session-ID: CON-512-[REDACTED]<br>
-                    Timestamp: [KLASSIFIZIERT]
-                </div>
-                
-                <div style="color: #ffff00; font-size: 0.9rem; margin-bottom: 25px;">
-                    Zur Ihrer eigenen Sicherheit schließen Sie diese Verbindung SOFORT.
-                </div>
-                
-                <button class="close-btn" onclick="closeConnection()">
-                    VERBINDUNG SCHLIESSEN - CON.512.20-24-512
-                </button>
-            </div>
-        </div>
-
-        <!-- Video Container -->
-        <div id="video-container" class="video-container">
-            <video id="main-video" class="video-player" controls>
-                <source src="conData.mp4" type="video/mp4">
-                Ihr Browser unterstützt das Video-Element nicht.
-            </video>
-        </div>
+  <div class="update-container">
+    <div class="update-box" onclick="loadJSON('moredata/bloodmoon.json')">
+      <div class="update-title">Blood Moon Alert</div>
+      <div class="update-desc">Unusual lunar activity reported globally.</div>
     </div>
+    <div class="update-box" onclick="loadJSON('moredata/science-project.json')">
+      <div class="update-title">New Science Project</div>
+      <div class="update-desc">Breakthrough in quantum computing research.</div>
+    </div>
+    <div class="update-box" onclick="loadJSON('moredata/weather-anomaly.json')">
+      <div class="update-title">Weather Anomaly</div>
+      <div class="update-desc">Sudden storms forming over Europe.</div>
+    </div>
+    <div class="update-box" onclick="loadJSON('moredata/cyber-attack.json')">
+      <div class="update-title">Cyber Attack Warning</div>
+      <div class="update-desc">Ongoing digital intrusion attempts detected.</div>
+    </div>
+    <div class="update-box" onclick="loadJSON('moredata/energy-fluctuation.json')">
+      <div class="update-title">Energy Grid Fluctuations</div>
+      <div class="update-desc">Unstable power surges across major cities.</div>
+    </div>
+    <div class="update-box" onclick="loadJSON('moredata/health-warning.json')">
+      <div class="update-title">Health Advisory</div>
+      <div class="update-desc">Spread of unknown viral strain under observation.</div>
+    </div>
+    <div class="update-box" onclick="loadJSON('moredata/space-observation.json')">
+      <div class="update-title">Space Observation</div>
+      <div class="update-desc">New unidentified object detected near orbit.</div>
+    </div>
+    <div class="update-box" onclick="loadJSON('moredata/ai-warning.json')">
+      <div class="update-title">AI Behavior Alert</div>
+      <div class="update-desc">Unusual patterns in autonomous systems.</div>
+    </div>
+    <div class="update-box" onclick="loadJSON('moredata/ocean-event.json')">
+      <div class="update-title">Oceanic Event</div>
+      <div class="update-desc">Unprecedented temperature rise detected.</div>
+    </div>
+    <div class="update-box" onclick="loadJSON('moredata/volcanic-activity.json')">
+      <div class="update-title">Volcanic Activity</div>
+      <div class="update-desc">Increased seismic activity near Pacific Rim.</div>
+    </div>
+    <div class="update-box" onclick="loadJSON('moredata/financial-warning.json')">
+      <div class="update-title">Financial Systems Alert</div>
+      <div class="update-desc">Market instability due to unknown triggers.</div>
+    </div>
+    <div class="update-box" onclick="loadJSON('moredata/political-risk.json')">
+      <div class="update-title">Political Risk</div>
+      <div class="update-desc">Unrest reported in several regions.</div>
+    </div>
+    <div class="update-box" onclick="loadJSON('moredata/research-update.json')">
+      <div class="update-title">Research Update</div>
+      <div class="update-desc">New vaccine undergoing human trials.</div>
+    </div>
+    <div class="update-box" onclick="loadJSON('moredata/security-breach.json')">
+      <div class="update-title">Security Breach</div>
+      <div class="update-desc">Unauthorized access attempt logged.</div>
+    </div>
+    <div class="update-box" onclick="loadJSON('moredata/mystery-signal.json')">
+      <div class="update-title">Mystery Signal</div>
+      <div class="update-desc">Strange frequency detected across radio bands.</div>
+    </div>
+  </div>
 
-    <script>
-        function startLoading() {
-            document.getElementById('warning-screen').style.display = 'none';
-            document.getElementById('loading-screen').style.display = 'block';
-            
-            let progress = 0;
-            const loadingBar = document.getElementById('loading-bar');
-            const loadingPercent = document.getElementById('loading-percent');
-            
-            const loadingInterval = setInterval(() => {
-                progress += Math.random() * 3 + 1;
-                if (progress > 100) progress = 100;
-                
-                loadingBar.style.width = progress + '%';
-                loadingPercent.textContent = Math.floor(progress) + '%';
-                
-                // Add some glitch effects during loading
-                if (Math.random() < 0.1) {
-                    document.body.classList.add('glitch');
-                    setTimeout(() => {
-                        document.body.classList.remove('glitch');
-                    }, 100);
-                }
-                
-                if (progress >= 100) {
-                    clearInterval(loadingInterval);
-                    setTimeout(() => {
-                        showVideo();
-                    }, 500);
-                }
-            }, 50);
+  <!-- JSON Viewer -->
+  <div id="json-viewer">
+    <button id="close-btn" onclick="closeViewer()">Close</button>
+    <pre id="json-content"></pre>
+  </div>
+
+  <script>
+    // Rechtsklick deaktivieren
+    document.addEventListener("contextmenu", event => event.preventDefault());
+
+    // JSON Syntax Highlighting
+    function syntaxHighlight(json) {
+      if (typeof json != 'string') {
+        json = JSON.stringify(json, undefined, 2);
+      }
+      json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      return json.replace(/("(\u[a-zA-Z0-9]{4}|\[^u]|[^\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+        let cls = 'number';
+        if (/^"/.test(match)) {
+          if (/:$/.test(match)) {
+            cls = 'key';
+          } else {
+            cls = 'string';
+          }
+        } else if (/true|false/.test(match)) {
+          cls = 'boolean';
+        } else if (/null/.test(match)) {
+          cls = 'null';
         }
+        return '<span class="' + cls + '">' + match + '</span>';
+      });
+    }
 
-        function showVideo() {
-            document.getElementById('loading-screen').style.display = 'none';
-            const videoContainer = document.getElementById('video-container');
-            const video = document.getElementById('main-video');
-            
-            videoContainer.style.display = 'block';
-            
-            // Auto-play the video
-            video.play().catch(e => {
-                console.log("Autoplay failed:", e);
-                // If autoplay fails, show controls
-                video.controls = true;
-            });
-            
-            // When video ends, show the post-video screen
-            video.addEventListener('ended', () => {
-                videoContainer.style.display = 'none';
-                document.querySelector('.terminal').style.display = 'flex';
-                document.getElementById('post-video-screen').style.display = 'block';
-            });
-            
-            // If video fails to load, skip to post-video screen
-            video.addEventListener('error', () => {
-                videoContainer.style.display = 'none';
-                document.querySelector('.terminal').style.display = 'flex';
-                document.getElementById('post-video-screen').style.display = 'block';
-            });
-        }
-
-        function closeConnection() {
-            // Glitch effect before closing
-            document.body.style.animation = 'glitch 0.1s infinite';
-            
-            setTimeout(() => {
-                document.body.innerHTML = `
-                    <div style="display: flex; align-items: center; justify-content: center; height: 100vh; background: #000; color: #ff0000; font-family: 'Courier Prime', monospace; text-align: center;">
-                        <div>
-                            <div style="font-size: 2rem; margin-bottom: 20px;">VERBINDUNG GETRENNT</div>
-                            <div style="font-size: 1rem; color: #0f0;">Session CON.512.20-24-512 beendet</div>
-                            <div style="font-size: 0.8rem; color: #ffff00; margin-top: 10px;">Alle Spuren wurden gelöscht</div>
-                        </div>
-                    </div>
-                `;
-            }, 2000);
-        }
-
-        // Add some ambient glitch effects
-        setInterval(() => {
-            if (Math.random() < 0.05) {
-                document.body.classList.add('glitch');
-                setTimeout(() => {
-                    document.body.classList.remove('glitch');
-                }, 150);
-            }
-        }, 3000);
-
-        // Prevent right-click context menu
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        
-        // Prevent F12, Ctrl+Shift+I, etc.
-        document.addEventListener('keydown', e => {
-            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
-                e.preventDefault();
-            }
+    // JSON laden und anzeigen
+    function loadJSON(path) {
+      fetch(path)
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById("json-content").innerHTML = syntaxHighlight(data);
+          document.getElementById("json-viewer").style.display = "flex";
+        })
+        .catch(err => {
+          document.getElementById("json-content").textContent = "Error loading JSON: " + err;
+          document.getElementById("json-viewer").style.display = "flex";
         });
-    </script>
+    }
+
+    function closeViewer() {
+      document.getElementById("json-viewer").style.display = "none";
+    }
+  </script>
+
 </body>
-</html
+</html>
