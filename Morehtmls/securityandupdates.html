@@ -2,14 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>More Security Updates and Warnings</title>
+  <title>SCP Security Updates</title>
   <link rel="stylesheet" href="../css/style.css">
   <style>
+    body {
+      margin: 0;
+      background: #0d1117;
+      color: #f1f1f1;
+      font-family: Arial, sans-serif;
+      user-select: none; /* Text markieren deaktivieren */
+      overflow: hidden; /* Kein Scrollen -> Fullscreen Look */
+    }
+
     .scp-container {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: 1rem;
-      margin-top: 20px;
+      padding: 20px;
     }
     .scp-box {
       background: #1e1e1e;
@@ -27,79 +36,149 @@
     .scp-title {
       font-size: 1.2em;
       margin-bottom: 8px;
-      color: #ff4c4c;
+      color: #58a6ff;
     }
     .scp-desc {
       font-size: 0.9em;
       color: #ccc;
     }
+
+    /* JSON Viewer Fenster */
+    #json-viewer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(13, 17, 23, 0.98);
+      color: #fff;
+      display: none;
+      flex-direction: column;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    #json-content {
+      flex: 1;
+      background: #161b22;
+      border-radius: 10px;
+      padding: 15px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      font-family: monospace;
+      color: #58a6ff;
+    }
+    #close-btn {
+      background: #ff4c4c;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    #close-btn:hover {
+      background: #e33;
+    }
   </style>
 </head>
 <body>
-  <h1>Additional Security Updates</h1>
-  <p>This section contains extended advisories and updates regarding anomalous events.</p>
+
+  <h1 style="text-align:center; padding: 10px 0;">SCP Security Updates</h1>
+  <p style="text-align:center;">Click on an entry below to view SCP details.</p>
 
   <div class="scp-container">
-    <div class="scp-box" onclick="window.location.href='moredata/scp-049.json'">
+    <div class="scp-box" onclick="loadJSON('moredata/scp-049.json')">
       <div class="scp-title">SCP-049</div>
-      <div class="scp-desc">"The Plague Doctor" – exhibits anomalous surgical abilities.</div>
+      <div class="scp-desc">The Plague Doctor</div>
     </div>
-    <div class="scp-box" onclick="window.location.href='moredata/scp-173.json'">
+    <div class="scp-box" onclick="loadJSON('moredata/scp-173.json')">
       <div class="scp-title">SCP-173</div>
-      <div class="scp-desc">"The Sculpture" – hostile entity requiring constant line of sight.</div>
+      <div class="scp-desc">The Sculpture</div>
     </div>
-    <div class="scp-box" onclick="window.location.href='moredata/scp-096.json'">
+    <div class="scp-box" onclick="loadJSON('moredata/scp-096.json')">
       <div class="scp-title">SCP-096</div>
-      <div class="scp-desc">"Shy Guy" – reacts violently when seen.</div>
+      <div class="scp-desc">Shy Guy</div>
     </div>
-    <div class="scp-box" onclick="window.location.href='moredata/scp-682.json'">
+    <div class="scp-box" onclick="loadJSON('moredata/scp-682.json')">
       <div class="scp-title">SCP-682</div>
-      <div class="scp-desc">"Hard-to-Destroy Reptile" – highly intelligent and dangerous.</div>
+      <div class="scp-desc">Hard-to-Destroy Reptile</div>
     </div>
-    <div class="scp-box" onclick="window.location.href='moredata/scp-939.json'">
+    <div class="scp-box" onclick="loadJSON('moredata/scp-939.json')">
       <div class="scp-title">SCP-939</div>
-      <div class="scp-desc">Predatory creatures mimicking human voices.</div>
+      <div class="scp-desc">Voice-Mimicking Predators</div>
     </div>
-    <div class="scp-box" onclick="window.location.href='moredata/scp-500.json'">
+    <div class="scp-box" onclick="loadJSON('moredata/scp-500.json')">
       <div class="scp-title">SCP-500</div>
-      <div class="scp-desc">A pill capable of curing any disease.</div>
+      <div class="scp-desc">Panacea Pills</div>
     </div>
-    <div class="scp-box" onclick="window.location.href='moredata/scp-999.json'">
+    <div class="scp-box" onclick="loadJSON('moredata/scp-999.json')">
       <div class="scp-title">SCP-999</div>
-      <div class="scp-desc">"The Tickle Monster" – produces extreme happiness.</div>
+      <div class="scp-desc">The Tickle Monster</div>
     </div>
-    <div class="scp-box" onclick="window.location.href='moredata/scp-087.json'">
+    <div class="scp-box" onclick="loadJSON('moredata/scp-087.json')">
       <div class="scp-title">SCP-087</div>
-      <div class="scp-desc">"The Stairwell" – endless descent with hostile entity.</div>
+      <div class="scp-desc">The Stairwell</div>
     </div>
-    <div class="scp-box" onclick="window.location.href='moredata/scp-106.json'">
+    <div class="scp-box" onclick="loadJSON('moredata/scp-106.json')">
       <div class="scp-title">SCP-106</div>
-      <div class="scp-desc">"The Old Man" – corrodes all materials and drags prey to its pocket dimension.</div>
+      <div class="scp-desc">The Old Man</div>
     </div>
-    <div class="scp-box" onclick="window.location.href='moredata/scp-055.json'">
+    <div class="scp-box" onclick="loadJSON('moredata/scp-055.json')">
       <div class="scp-title">SCP-055</div>
-      <div class="scp-desc">"Unknown" – impossible to remember or describe.</div>
+      <div class="scp-desc">Unknown</div>
     </div>
-    <div class="scp-box" onclick="window.location.href='moredata/scp-3008.json'">
+    <div class="scp-box" onclick="loadJSON('moredata/scp-3008.json')">
       <div class="scp-title">SCP-3008</div>
-      <div class="scp-desc">Anomalous IKEA store with endless interior.</div>
+      <div class="scp-desc">Infinite IKEA</div>
     </div>
-    <div class="scp-box" onclick="window.location.href='moredata/scp-2006.json'">
+    <div class="scp-box" onclick="loadJSON('moredata/scp-2006.json')">
       <div class="scp-title">SCP-2006</div>
-      <div class="scp-desc">Entity obsessed with scaring humans, often fails humorously.</div>
+      <div class="scp-desc">Scary Entity</div>
     </div>
-    <div class="scp-box" onclick="window.location.href='moredata/scp-1471.json'">
+    <div class="scp-box" onclick="loadJSON('moredata/scp-1471.json')">
       <div class="scp-title">SCP-1471</div>
-      <div class="scp-desc">Mobile app causing hallucinations of a wolf-headed humanoid.</div>
+      <div class="scp-desc">MalO App</div>
     </div>
-    <div class="scp-box" onclick="window.location.href='moredata/scp-231.json'">
+    <div class="scp-box" onclick="loadJSON('moredata/scp-231.json')">
       <div class="scp-title">SCP-231</div>
-      <div class="scp-desc">"Special Personnel Requirements" – classified, extreme security.</div>
+      <div class="scp-desc">Classified Protocol</div>
     </div>
-    <div class="scp-box" onclick="window.location.href='moredata/scp-1981.json'">
+    <div class="scp-box" onclick="loadJSON('moredata/scp-1981.json')">
       <div class="scp-title">SCP-1981</div>
-      <div class="scp-desc">Tape titled "RONALD REAGAN CUT UP WHILE TALKING".</div>
+      <div class="scp-desc">Reagan Tape</div>
     </div>
   </div>
+
+  <!-- JSON Viewer -->
+  <div id="json-viewer">
+    <button id="close-btn" onclick="closeViewer()">Close</button>
+    <pre id="json-content"></pre>
+  </div>
+
+  <script>
+    // Rechtsklick deaktivieren
+    document.addEventListener("contextmenu", event => event.preventDefault());
+
+    // JSON laden und anzeigen
+    function loadJSON(path) {
+      fetch(path)
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById("json-content").textContent = JSON.stringify(data, null, 2);
+          document.getElementById("json-viewer").style.display = "flex";
+        })
+        .catch(err => {
+          document.getElementById("json-content").textContent = "Error loading JSON: " + err;
+          document.getElementById("json-viewer").style.display = "flex";
+        });
+    }
+
+    // JSON-Viewer schließen
+    function closeViewer() {
+      document.getElementById("json-viewer").style.display = "none";
+    }
+  </script>
+
 </body>
 </html>
