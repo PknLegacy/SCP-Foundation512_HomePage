@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>SCP Security Updates</title>
+  <title>Security Updates and Warnings</title>
   <link rel="stylesheet" href="../css/style.css">
   <style>
     body {
@@ -10,17 +10,17 @@
       background: #0d1117;
       color: #f1f1f1;
       font-family: Arial, sans-serif;
-      user-select: none; /* Text markieren deaktivieren */
-      overflow: hidden; /* Kein Scrollen -> Fullscreen Look */
+      user-select: none; /* Markieren deaktivieren */
+      overflow: hidden; /* Vollbild Look */
     }
 
-    .scp-container {
+    .update-container {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: 1rem;
       padding: 20px;
     }
-    .scp-box {
+    .update-box {
       background: #1e1e1e;
       color: #f1f1f1;
       padding: 15px;
@@ -29,21 +29,21 @@
       transition: transform 0.2s;
       cursor: pointer;
     }
-    .scp-box:hover {
+    .update-box:hover {
       transform: scale(1.05);
       background: #292929;
     }
-    .scp-title {
+    .update-title {
       font-size: 1.2em;
       margin-bottom: 8px;
       color: #58a6ff;
     }
-    .scp-desc {
+    .update-desc {
       font-size: 0.9em;
       color: #ccc;
     }
 
-    /* JSON Viewer Fenster */
+    /* JSON Viewer */
     #json-viewer {
       position: fixed;
       top: 0;
@@ -84,69 +84,69 @@
 </head>
 <body>
 
-  <h1 style="text-align:center; padding: 10px 0;">SCP Security Updates</h1>
-  <p style="text-align:center;">Click on an entry below to view SCP details.</p>
+  <h1 style="text-align:center; padding: 10px 0;">Current Security Updates</h1>
+  <p style="text-align:center;">Click on an entry below to view detailed information.</p>
 
-  <div class="scp-container">
-    <div class="scp-box" onclick="loadJSON('moredata/scp-049.json')">
-      <div class="scp-title">SCP-049</div>
-      <div class="scp-desc">The Plague Doctor</div>
+  <div class="update-container">
+    <div class="update-box" onclick="loadJSON('moredata/bloodmoon.json')">
+      <div class="update-title">Blood Moon Alert</div>
+      <div class="update-desc">Unusual lunar activity reported globally.</div>
     </div>
-    <div class="scp-box" onclick="loadJSON('moredata/scp-173.json')">
-      <div class="scp-title">SCP-173</div>
-      <div class="scp-desc">The Sculpture</div>
+    <div class="update-box" onclick="loadJSON('moredata/science-project.json')">
+      <div class="update-title">New Science Project</div>
+      <div class="update-desc">Breakthrough in quantum computing research.</div>
     </div>
-    <div class="scp-box" onclick="loadJSON('moredata/scp-096.json')">
-      <div class="scp-title">SCP-096</div>
-      <div class="scp-desc">Shy Guy</div>
+    <div class="update-box" onclick="loadJSON('moredata/weather-anomaly.json')">
+      <div class="update-title">Weather Anomaly</div>
+      <div class="update-desc">Sudden storms forming over Europe.</div>
     </div>
-    <div class="scp-box" onclick="loadJSON('moredata/scp-682.json')">
-      <div class="scp-title">SCP-682</div>
-      <div class="scp-desc">Hard-to-Destroy Reptile</div>
+    <div class="update-box" onclick="loadJSON('moredata/cyber-attack.json')">
+      <div class="update-title">Cyber Attack Warning</div>
+      <div class="update-desc">Ongoing digital intrusion attempts detected.</div>
     </div>
-    <div class="scp-box" onclick="loadJSON('moredata/scp-939.json')">
-      <div class="scp-title">SCP-939</div>
-      <div class="scp-desc">Voice-Mimicking Predators</div>
+    <div class="update-box" onclick="loadJSON('moredata/energy-fluctuation.json')">
+      <div class="update-title">Energy Grid Fluctuations</div>
+      <div class="update-desc">Unstable power surges across major cities.</div>
     </div>
-    <div class="scp-box" onclick="loadJSON('moredata/scp-500.json')">
-      <div class="scp-title">SCP-500</div>
-      <div class="scp-desc">Panacea Pills</div>
+    <div class="update-box" onclick="loadJSON('moredata/health-warning.json')">
+      <div class="update-title">Health Advisory</div>
+      <div class="update-desc">Spread of unknown viral strain under observation.</div>
     </div>
-    <div class="scp-box" onclick="loadJSON('moredata/scp-999.json')">
-      <div class="scp-title">SCP-999</div>
-      <div class="scp-desc">The Tickle Monster</div>
+    <div class="update-box" onclick="loadJSON('moredata/space-observation.json')">
+      <div class="update-title">Space Observation</div>
+      <div class="update-desc">New unidentified object detected near orbit.</div>
     </div>
-    <div class="scp-box" onclick="loadJSON('moredata/scp-087.json')">
-      <div class="scp-title">SCP-087</div>
-      <div class="scp-desc">The Stairwell</div>
+    <div class="update-box" onclick="loadJSON('moredata/ai-warning.json')">
+      <div class="update-title">AI Behavior Alert</div>
+      <div class="update-desc">Unusual patterns in autonomous systems.</div>
     </div>
-    <div class="scp-box" onclick="loadJSON('moredata/scp-106.json')">
-      <div class="scp-title">SCP-106</div>
-      <div class="scp-desc">The Old Man</div>
+    <div class="update-box" onclick="loadJSON('moredata/ocean-event.json')">
+      <div class="update-title">Oceanic Event</div>
+      <div class="update-desc">Unprecedented temperature rise detected.</div>
     </div>
-    <div class="scp-box" onclick="loadJSON('moredata/scp-055.json')">
-      <div class="scp-title">SCP-055</div>
-      <div class="scp-desc">Unknown</div>
+    <div class="update-box" onclick="loadJSON('moredata/volcanic-activity.json')">
+      <div class="update-title">Volcanic Activity</div>
+      <div class="update-desc">Increased seismic activity near Pacific Rim.</div>
     </div>
-    <div class="scp-box" onclick="loadJSON('moredata/scp-3008.json')">
-      <div class="scp-title">SCP-3008</div>
-      <div class="scp-desc">Infinite IKEA</div>
+    <div class="update-box" onclick="loadJSON('moredata/financial-warning.json')">
+      <div class="update-title">Financial Systems Alert</div>
+      <div class="update-desc">Market instability due to unknown triggers.</div>
     </div>
-    <div class="scp-box" onclick="loadJSON('moredata/scp-2006.json')">
-      <div class="scp-title">SCP-2006</div>
-      <div class="scp-desc">Scary Entity</div>
+    <div class="update-box" onclick="loadJSON('moredata/political-risk.json')">
+      <div class="update-title">Political Risk</div>
+      <div class="update-desc">Unrest reported in several regions.</div>
     </div>
-    <div class="scp-box" onclick="loadJSON('moredata/scp-1471.json')">
-      <div class="scp-title">SCP-1471</div>
-      <div class="scp-desc">MalO App</div>
+    <div class="update-box" onclick="loadJSON('moredata/research-update.json')">
+      <div class="update-title">Research Update</div>
+      <div class="update-desc">New vaccine undergoing human trials.</div>
     </div>
-    <div class="scp-box" onclick="loadJSON('moredata/scp-231.json')">
-      <div class="scp-title">SCP-231</div>
-      <div class="scp-desc">Classified Protocol</div>
+    <div class="update-box" onclick="loadJSON('moredata/security-breach.json')">
+      <div class="update-title">Security Breach</div>
+      <div class="update-desc">Unauthorized access attempt logged.</div>
     </div>
-    <div class="scp-box" onclick="loadJSON('moredata/scp-1981.json')">
-      <div class="scp-title">SCP-1981</div>
-      <div class="scp-desc">Reagan Tape</div>
+    <div class="update-box" onclick="loadJSON('moredata/mystery-signal.json')">
+      <div class="update-title">Mystery Signal</div>
+      <div class="update-desc">Strange frequency detected across radio bands.</div>
     </div>
   </div>
 
@@ -174,7 +174,6 @@
         });
     }
 
-    // JSON-Viewer schließen
     function closeViewer() {
       document.getElementById("json-viewer").style.display = "none";
     }
