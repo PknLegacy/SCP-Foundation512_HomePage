@@ -1,0 +1,10 @@
+{
+  "title": "Unidentified Orbital Object",
+  "category": "Space Observation",
+  "date": "2025-09-08 19:01:28",
+  "location": "[REDACTED]",
+  "time": "04:12 UTC",
+  "severity": "Medium",
+  "description": "A fast-moving object was detected leaving low Earth orbit. Composition remains undetermined; trajectory does not match known satellites.",
+  "notes": "Tracking lost after 6 minutes."
+}
