@@ -1,6 +1,7 @@
-Blood Moon Alert
-  "Astronomical Event
- 2025-09-08 19:01:28",
+{
+  "title": "Blood Moon Alert",
+  "category": "Astronomical Event",
+  "date": "2025-09-08 19:01:28",
   "location": "[REDACTED]",
   "time": "23:47 UTC",
   "severity": "High",
