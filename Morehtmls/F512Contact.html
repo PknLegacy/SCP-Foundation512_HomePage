@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCP-Foundation512 - Rekrutierung</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a1a1a;
+            --secondary-color: #0f0f0f;
+            --accent-color: #ff0000;
+            --text-color: #e0e0e0;
+            --border-color: #333;
+            --success-color: #00ff00;
+            --warning-color: #ff9900;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            user-select: none;
+        }
+
+        body.no-select {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(255, 0, 0, 0.9), 0 0 30px rgba(255, 0, 0, 0.5);
+            }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin-bottom: 20px;
+        }
+
+        .warning {
+            background-color: rgba(255, 0, 0, 0.1);
+            border-left: 4px solid var(--accent-color);
+            padding: 15px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        .warning p {
+            margin-bottom: 10px;
+        }
+
+        .warning p:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-container {
+            background-color: var(--secondary-color);
+            border-radius: 5px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            color: var(--accent-color);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            color: var(--text-color);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            padding: 12px 30px;
+            border: none;
+            border-radius: 3px;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: #cc0000;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        .btn:active {
+            transform: translateY(2px);
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 5px;
+            color: #fff;
+            font-weight: 600;
+            z-index: 1000;
+            transform: translateX(150%);
+            transition: transform 0.5s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background-color: var(--success-color);
+        }
+
+        .notification.error {
+            background-color: var(--accent-color);
+        }
+
+        .led {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 10px;
+            background-color: var(--accent-color);
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .led-green {
+            background-color: var(--success-color);
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .security-notice {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            font-size: 0.7rem;
+            color: #555;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body class="no-select">
+    <div class="container">
+        <header>
+            <div class="logo">SCP-Foundation512</div>
+            <div class="subtitle">Rekrutierungsabteilung</div>
+            <div class="warning">
+                <p><span class="led"></span> WARNUNG: Diese Website wird überwacht. Unbefugter Zugriff wird protokolliert und verfolgt.</p>
+                <p>Alle Bewerber unterliegen einer Sicherheitsüberprüfung Stufe 3.</p>
+            </div>
+        </header>
+
+        <main>
+            <div class="form-container">
+                <form id="recruitment-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Vollständiger Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Alter *</label>
+                            <input type="number" id="age" name="age" min="18" max="99" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="country">Land *</label>
+                            <input type="text" id="country" name="country" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-Mail *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="profession">Beruf *</label>
+                            <input type="text" id="profession" name="profession" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="department">Bevorzugte Abteilung</label>
+                            <select id="department" name="department">
+                                <option value="">Bitte wählen...</option>
+                                <option value="Sicherheit">Sicherheit</option>
+                                <option value="Forschung">Forschung</option>
+                                <option value="Containment">Containment</option>
+                                <option value="Verwaltung">Verwaltung</option>
+                                <option value="Medizin">Medizin</option>
+                                <option value="Technik">Technik</option>
+                                <option value="Mobile Task Force">Mobile Task Force</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="experience">Erfahrung im Bereich Anomalien</label>
+                            <select id="experience" name="experience">
+                                <option value="">Bitte wählen...</option>
+                                <option value="Keine">Keine</option>
+                                <option value="Gering">Gering</option>
+                                <option value="Mittel">Mittel</option>
+                                <option value="Umfassend">Umfassend</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="clearance">Aktuelle Sicherheitsfreigabe</label>
+                            <select id="clearance" name="clearance">
+                                <option value="">Bitte wählen...</option>
+                                <option value="Keine">Keine</option>
+                                <option value="Stufe 1">Stufe 1</option>
+                                <option value="Stufe 2">Stufe 2</option>
+                                <option value="Stufe 3">Stufe 3</option>
+                                <option value="Stufe 4">Stufe 4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="motivation">Warum möchten Sie der SCP-Foundation512 beitreten? *</label>
+                        <textarea id="motivation" name="motivation" required placeholder="Bitte beschreiben Sie ausführlich Ihre Motivation und warum Sie für die Foundation geeignet sind..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="skills">Besondere Fähigkeiten oder Qualifikationen</label>
+                        <textarea id="skills" name="skills" placeholder="Beschreiben Sie hier Ihre besonderen Fähigkeiten, die für die Foundation von Interesse sein könnten..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="references">Referenzen (falls vorhanden)</label>
+                        <input type="text" id="references" name="references" placeholder="Name, Position und Kontaktinformationen von Referenzen">
+                    </div>
+
+                    <button type="submit" class="btn">Bewerbung einreichen</button>
+                </form>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>© 2023 SCP-Foundation512. Alle Rechte vorbehalten. | Zugriff für autorisiertes Personal nur.</p>
+        </footer>
+    </div>
+
+    <div class="notification" id="notification"></div>
+    <div class="security-notice">SECURE CONNECTION ESTABLISHED</div>
+
+    <script>
+        // Rechtsklick deaktivieren
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            showNotification('Rechtsklick wurde deaktiviert', 'error');
+        });
+
+        // EmailJS initialisieren
+        emailjs.init('3j7DIeRM3LvL7NrMt');
+
+        // Formular-Handler
+        document.getElementById('recruitment-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Formulardaten sammeln
+            const formData = {
+                name: document.getElementById('name').value,
+                age: document.getElementById('age').value,
+                country: document.getElementById('country').value,
+                email: document.getElementById('email').value,
+                profession: document.getElementById('profession').value,
+                department: document.getElementById('department').value,
+                experience: document.getElementById('experience').value,
+                clearance: document.getElementById('clearance').value,
+                motivation: document.getElementById('motivation').value,
+                skills: document.getElementById('skills').value,
+                references: document.getElementById('references').value
+            };
+            
+            // Überprüfen, ob alle Pflichtfelder ausgefüllt sind
+            if (!formData.name || !formData.age || !formData.country || !formData.email || !formData.profession || !formData.motivation) {
+                showNotification('Bitte füllen Sie alle Pflichtfelder aus', 'error');
+                return;
+            }
+            
+            // LED-Status ändern
+            const led = document.querySelector('.led');
+            led.classList.remove('led-green');
+            
+            // E-Mail mit EmailJS senden
+            emailjs.send('service_h2tya1h', 'template_recruitment', formData)
+                .then(function(response) {
+                    console.log('E-Mail erfolgreich gesendet', response);
+                    showNotification('Ihre Bewerbung wurde erfolgreich übermittelt. Wir werden uns in Kürze mit Ihnen in Verbindung setzen.', 'success');
+                    document.getElementById('recruitment-form').reset();
+                    
+                    // LED-Status ändern
+                    led.classList.add('led-green');
+                    
+                    // Nach 5 Sekunden zurück zur roten LED
+                    setTimeout(function() {
+                        led.classList.remove('led-green');
+                    }, 5000);
+                }, function(error) {
+                    console.error('Fehler beim Senden der E-Mail', error);
+                    showNotification('Fehler beim Senden Ihrer Bewerbung. Bitte versuchen Sie es später erneut.', 'error');
+                });
+        });
+
+        // Benachrichtigungsfunktion
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = 'notification ' + type;
+            notification.classList.add('show');
+            
+            setTimeout(function() {
+                notification.classList.remove('show');
+            }, 5000);
+        }
+
+        // Sicherheitsüberwachung simulieren
+        setInterval(function() {
+            const securityNotice = document.querySelector('.security-notice');
+            const randomText = [
+                'SECURE CONNECTION ESTABLISHED',
+                'MONITORING USER ACTIVITY',
+                'ENCRYPTED CHANNEL ACTIVE',
+                'SECURITY PROTOCOLS ENGAGED',
+                'AUTHENTICATION VERIFIED'
+            ];
+            securityNotice.textContent = randomText[Math.floor(Math.random() * randomText.length)];
+        }, 5000);
+    </script>
+</body>
+</html>
