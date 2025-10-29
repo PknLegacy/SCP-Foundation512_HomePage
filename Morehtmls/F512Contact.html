@@ -374,6 +374,21 @@
         // EmailJS initialisieren
         emailjs.init('3j7DIeRM3LvL7NrMt');
 
+        // Funktion zum Generieren eines Zugangscode
+        function generateAccessCode() {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let result = '';
+            for (let i = 0; i < 8; i++) {
+                result += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return result;
+        }
+
+        // Funktion zum Generieren einer einzigartigen ID
+        function generateUniqueId() {
+            return 'SCP-' + Date.now().toString(36) + '-' + Math.random().toString(36).substr(2, 5);
+        }
+
         // Formular-Handler
         document.getElementById('recruitment-form').addEventListener('submit', function(event) {
             event.preventDefault();
@@ -390,7 +405,14 @@
                 clearance: document.getElementById('clearance').value,
                 motivation: document.getElementById('motivation').value,
                 skills: document.getElementById('skills').value,
-                references: document.getElementById('references').value
+                references: document.getElementById('references').value,
+                
+                // Zusätzliche Daten für die E-Mail-Vorlage
+                date: new Date().toLocaleDateString('de-DE'),
+                timestamp: new Date().toISOString(),
+                access_code: generateAccessCode(),
+                unique_id: generateUniqueId(),
+                encryption_level: "AES-256"
             };
             
             // Überprüfen, ob alle Pflichtfelder ausgefüllt sind
@@ -404,7 +426,7 @@
             led.classList.remove('led-green');
             
             // E-Mail mit EmailJS senden
-            emailjs.send('service_h2tya1h', 'template_recruitment', formData)
+            emailjs.send('service_h2tya1h', 'template_w9ldcdm', formData)
                 .then(function(response) {
                     console.log('E-Mail erfolgreich gesendet', response);
                     showNotification('Ihre Bewerbung wurde erfolgreich übermittelt. Wir werden uns in Kürze mit Ihnen in Verbindung setzen.', 'success');
