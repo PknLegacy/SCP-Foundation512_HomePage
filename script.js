@@ -297,13 +297,4 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 2200); // 2,2 Sekunden Animation
     });
 });
-document.querySelectorAll('.navbar li').forEach(item => {
-    item.addEventListener('click', () => {
-        const file = item.getAttribute('data-file') || `${item.getAttribute('data-page')}.html`;
-        fetch(file)
-            .then(response => response.text())
-            .then(data => {
-                document.querySelector('#content').innerHTML = data;
-            });
-    });
-});
+
