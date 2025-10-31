@@ -6,10 +6,42 @@
     <title>SCP-Foundation512 - Rekrutierung</title>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="Morehtmls/blocklist.js"></script>
-    <!-- ... Styles wie gehabt ... -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ... (Dein gesamtes CSS wie bisher) ... */
+        /* STYLE BLEIBT UNVERÄNDERT! */
+        :root { --primary-color: #1a1a1a; --secondary-color: #0f0f0f; --accent-color: #ff0000; --text-color: #e0e0e0; --border-color: #333; --success-color: #00ff00; --warning-color: #ff9900;}
+        * {margin: 0; padding: 0; box-sizing: border-box;}
+        body {font-family: 'Rajdhani', sans-serif; background-color: var(--primary-color); color: var(--text-color); line-height: 1.6; overflow-x: hidden; user-select: none;}
+        body.no-select {-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
+        .container {max-width: 1200px; margin: 0 auto; padding: 20px;}
+        header {text-align: center; padding: 30px 0; border-bottom: 1px solid var(--border-color); position: relative;}
+        .logo {font-family: 'Orbitron', monospace; font-size: 2.5rem; font-weight: 900; color: var(--accent-color); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 10px; text-shadow: 0 0 10px rgba(255, 0, 0, 0.7); animation: glow 2s infinite alternate;}
+        @keyframes glow {from {text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);}to {text-shadow: 0 0 20px rgba(255, 0, 0, 0.9), 0 0 30px rgba(255, 0, 0, 0.5);}}
+        .subtitle {font-size: 1.2rem; color: var(--text-color); margin-bottom: 20px;}
+        .warning {background-color: rgba(255, 0, 0, 0.1); border-left: 4px solid var(--accent-color); padding: 15px; margin-bottom: 30px; font-size: 0.9rem;}
+        .warning p {margin-bottom: 10px;}
+        .warning p:last-child {margin-bottom: 0;}
+        .form-container {background-color: var(--secondary-color); border-radius: 5px; padding: 30px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); border: 1px solid var(--border-color);}
+        .form-group {margin-bottom: 20px;}
+        .form-row {display: flex; gap: 20px;}
+        .form-row .form-group {flex: 1;}
+        label {display: block; margin-bottom: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; color: var(--accent-color);}
+        input, select, textarea {width: 100%; padding: 12px; background-color: var(--primary-color); border: 1px solid var(--border-color); border-radius: 3px; color: var(--text-color); font-family: 'Rajdhani', sans-serif; font-size: 1rem; transition: all 0.3s;}
+        input:focus, select:focus, textarea:focus {outline: none; border-color: var(--accent-color); box-shadow: 0 0 5px rgba(255, 0, 0, 0.3);}
+        textarea {resize: vertical; min-height: 150px;}
+        .btn {display: inline-block; background-color: var(--accent-color); color: var(--primary-color); padding: 12px 30px; border: none; border-radius: 3px; font-family: 'Orbitron', monospace; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.3s; font-size: 1rem;}
+        .btn:hover {background-color: #cc0000; box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);}
+        .btn:active {transform: translateY(2px);}
+        .notification {position: fixed; top: 20px; right: 20px; padding: 15px 25px; border-radius: 5px; color: #fff; font-weight: 600; z-index: 1000; transform: translateX(150%); transition: transform 0.5s ease;}
+        .notification.show {transform: translateX(0);}
+        .notification.success {background-color: var(--success-color);}
+        .notification.error {background-color: var(--accent-color);}
+        .led {display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 10px; background-color: var(--accent-color); box-shadow: 0 0 10px rgba(255, 0, 0, 0.8); animation: blink 1.5s infinite;}
+        @keyframes blink {0%, 100% {opacity: 1;}50% {opacity: 0.5;}}
+        .led-green {background-color: var(--success-color); box-shadow: 0 0 10px rgba(0, 255, 0, 0.8);}
+        .footer {text-align: center; padding: 20px 0; margin-top: 40px; border-top: 1px solid var(--border-color); font-size: 0.8rem; color: #888;}
+        .security-notice {position: fixed; bottom: 10px; left: 10px; font-size: 0.7rem; color: #555; background-color: rgba(0, 0, 0, 0.5); padding: 5px 10px; border-radius: 3px;}
+        @media (max-width: 768px) {.form-row {flex-direction: column; gap: 0;}.logo {font-size: 2rem;}}
     </style>
 </head>
 <body class="no-select">
@@ -36,7 +68,6 @@
                             <input type="number" id="age" name="age" min="16" max="99" required>
                         </div>
                     </div>
-
                     <div class="form-row">
                         <div class="form-group">
                             <label for="country">Land *</label>
@@ -47,7 +78,6 @@
                             <input type="email" id="email" name="email" required>
                         </div>
                     </div>
-
                     <div class="form-row">
                         <div class="form-group">
                             <label for="profession">Beruf *</label>
@@ -67,7 +97,6 @@
                             </select>
                         </div>
                     </div>
-
                     <div class="form-row">
                         <div class="form-group">
                             <label for="experience">Erfahrung im Bereich Anomalien</label>
@@ -91,35 +120,28 @@
                             </select>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label for="motivation">Warum möchten Sie der SCP-Foundation512 beitreten? *</label>
                         <textarea id="motivation" name="motivation" required placeholder="Bitte beschreiben Sie ausführlich Ihre Motivation und warum Sie für die Foundation geeignet sind..."></textarea>
                     </div>
-
                     <div class="form-group">
                         <label for="skills">Besondere Fähigkeiten oder Qualifikationen</label>
                         <textarea id="skills" name="skills" placeholder="Beschreiben Sie hier Ihre besonderen Fähigkeiten, die für die Foundation von Interesse sein könnten..."></textarea>
                     </div>
-
                     <div class="form-group">
                         <label for="references">Referenzen (falls vorhanden)</label>
                         <input type="text" id="references" name="references" placeholder="Name, Position und Kontaktinformationen von Referenzen">
                     </div>
-
                     <button type="submit" class="btn">Bewerbung einreichen</button>
                 </form>
             </div>
         </main>
-
         <footer class="footer">
             <p>© 2025 SCP-Foundation512. Alle Rechte vorbehalten. | Zugriff für autorisiertes Personal, fiktiv.</p>
         </footer>
     </div>
-
     <div class="notification" id="notification"></div>
     <div class="security-notice">SECURE CONNECTION ESTABLISHED</div>
-
     <script>
         // Rechtsklick deaktivieren
         document.addEventListener('contextmenu', function(e) {
@@ -130,52 +152,38 @@
         // EmailJS initialisieren
         emailjs.init('3j7DIeRM3LvL7NrMt');
 
-        // Blocklist-Prüfung für Felder (sofortiges Feedback)
-        function validateBlocklist() {
-            const emailInput = document.getElementById('email');
-            const nameInput = document.getElementById('name');
-            const email = emailInput.value;
-            const name = nameInput.value;
-
-            const blockResult = window.Blocklist.isBlocked(email, name);
+        // Formular-Handler (Blocklist-Prüfung integriert)
+        document.getElementById('recruitment-form').addEventListener('submit', function(event) {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const blockResult = window.blocklistCheck ? window.blocklistCheck(email, name) : { isEmailBlocked: false, isUsernameBlocked: false };
 
             if (blockResult.isEmailBlocked) {
-                emailInput.setCustomValidity('Diese E-Mail-Adresse ist nicht zugelassen.');
-                showNotification('FEHLER: Diese E-Mail-Adresse ist auf der Sperrliste.', 'error');
-            } else {
-                emailInput.setCustomValidity('');
-            }
-            if (blockResult.isUsernameBlocked) {
-                nameInput.setCustomValidity('Dieser Benutzername ist nicht zugelassen.');
-                showNotification('FEHLER: Dieser Benutzername ist auf der Sperrliste.', 'error');
-            } else {
-                nameInput.setCustomValidity('');
-            }
-            // Immer true zurück, für echte Prüfung beim Submit!
-            return !(blockResult.isEmailBlocked || blockResult.isUsernameBlocked);
-        }
-
-        document.getElementById('email').addEventListener('input', validateBlocklist);
-        document.getElementById('name').addEventListener('input', validateBlocklist);
-
-        // Formular-Handler mit Blocklist-Prüfung
-        document.getElementById('recruitment-form').addEventListener('submit', function(event) {
-            // Vor dem Senden Blocklist checken!
-            if (!validateBlocklist()) {
                 event.preventDefault();
-                // reportValidity zeigt die native Browser-Fehlermeldung
+                document.getElementById('email').setCustomValidity('Diese E-Mail-Adresse ist nicht zugelassen.');
+                showNotification('FEHLER: Diese E-Mail-Adresse ist auf der Sperrliste.', 'error');
                 document.getElementById('email').reportValidity();
+                return;
+            } else {
+                document.getElementById('email').setCustomValidity('');
+            }
+
+            if (blockResult.isUsernameBlocked) {
+                event.preventDefault();
+                document.getElementById('name').setCustomValidity('Dieser Benutzername ist nicht zugelassen.');
+                showNotification('FEHLER: Dieser Benutzername ist auf der Sperrliste.', 'error');
                 document.getElementById('name').reportValidity();
                 return;
+            } else {
+                document.getElementById('name').setCustomValidity('');
             }
-            event.preventDefault();
 
-            // Formulardaten sammeln
+            // Überprüfen, ob alle Pflichtfelder ausgefüllt sind
             const formData = {
-                name: document.getElementById('name').value,
+                name: name,
                 age: document.getElementById('age').value,
                 country: document.getElementById('country').value,
-                email: document.getElementById('email').value,
+                email: email,
                 profession: document.getElementById('profession').value,
                 department: document.getElementById('department').value,
                 experience: document.getElementById('experience').value,
@@ -190,29 +198,52 @@
                 encryption_level: "AES-256"
             };
 
-            // Überprüfen, ob alle Pflichtfelder ausgefüllt sind
             if (!formData.name || !formData.age || !formData.country || !formData.email || !formData.profession || !formData.motivation) {
+                event.preventDefault();
                 showNotification('Bitte füllen Sie alle Pflichtfelder aus', 'error');
                 return;
             }
 
+            event.preventDefault(); // Standardverhalten verhindern (wegen Ajax)
+
             // LED-Status ändern
             const led = document.querySelector('.led');
-            led.classList.remove('led-green');
+            if (led) led.classList.remove('led-green');
 
             // E-Mail mit EmailJS senden
             emailjs.send('service_h2tya1h', 'template_ok05na4', formData)
                 .then(function(response) {
-                    console.log('E-Mail erfolgreich gesendet', response);
                     showNotification('Ihre Bewerbung wurde erfolgreich übermittelt. Wir werden uns in Kürze mit Ihnen in Verbindung setzen.', 'success');
                     document.getElementById('recruitment-form').reset();
-
-                    led.classList.add('led-green');
-                    setTimeout(function() { led.classList.remove('led-green'); }, 5000);
+                    if (led) led.classList.add('led-green');
+                    setTimeout(function() {
+                        if (led) led.classList.remove('led-green');
+                    }, 5000);
                 }, function(error) {
-                    console.error('Fehler beim Senden der E-Mail', error);
                     showNotification('Fehler beim Senden Ihrer Bewerbung. Bitte versuchen Sie es später erneut.', 'error');
                 });
+        });
+
+        // Sofortiges Feedback beim Tippen
+        document.getElementById('email').addEventListener('input', function() {
+            const email = this.value;
+            const name = document.getElementById('name').value;
+            const blockResult = window.blocklistCheck ? window.blocklistCheck(email, name) : { isEmailBlocked: false };
+            if (blockResult.isEmailBlocked) {
+                this.setCustomValidity('Diese E-Mail-Adresse ist nicht zugelassen.');
+            } else {
+                this.setCustomValidity('');
+            }
+        });
+        document.getElementById('name').addEventListener('input', function() {
+            const name = this.value;
+            const email = document.getElementById('email').value;
+            const blockResult = window.blocklistCheck ? window.blocklistCheck(email, name) : { isUsernameBlocked: false };
+            if (blockResult.isUsernameBlocked) {
+                this.setCustomValidity('Dieser Benutzername ist nicht zugelassen.');
+            } else {
+                this.setCustomValidity('');
+            }
         });
 
         function showNotification(message, type) {
