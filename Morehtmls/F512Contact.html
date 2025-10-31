@@ -8,7 +8,7 @@
     <script src="Morehtmls/blocklist.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* STYLE BLEIBT UNVERÄNDERT! */
+        /* DEIN STYLE AUS DEM ORIGINAL BLEIBT UNVERÄNDERT */
         :root { --primary-color: #1a1a1a; --secondary-color: #0f0f0f; --accent-color: #ff0000; --text-color: #e0e0e0; --border-color: #333; --success-color: #00ff00; --warning-color: #ff9900;}
         * {margin: 0; padding: 0; box-sizing: border-box;}
         body {font-family: 'Rajdhani', sans-serif; background-color: var(--primary-color); color: var(--text-color); line-height: 1.6; overflow-x: hidden; user-select: none;}
@@ -54,7 +54,6 @@
                 <p>Alle Bewerber unterliegen einer Sicherheitsüberprüfung Stufe 3.</p>
             </div>
         </header>
-
         <main>
             <div class="form-container">
                 <form id="recruitment-form">
@@ -149,7 +148,6 @@
             showNotification('Rechtsklick wurde deaktiviert', 'error');
         });
 
-        // EmailJS initialisieren
         emailjs.init('3j7DIeRM3LvL7NrMt');
 
         // Formular-Handler (Blocklist-Prüfung integriert)
@@ -158,6 +156,7 @@
             const email = document.getElementById('email').value;
             const blockResult = window.blocklistCheck ? window.blocklistCheck(email, name) : { isEmailBlocked: false, isUsernameBlocked: false };
 
+            // BLOCKLIST Prüfung
             if (blockResult.isEmailBlocked) {
                 event.preventDefault();
                 document.getElementById('email').setCustomValidity('Diese E-Mail-Adresse ist nicht zugelassen.');
@@ -167,7 +166,6 @@
             } else {
                 document.getElementById('email').setCustomValidity('');
             }
-
             if (blockResult.isUsernameBlocked) {
                 event.preventDefault();
                 document.getElementById('name').setCustomValidity('Dieser Benutzername ist nicht zugelassen.');
@@ -178,7 +176,7 @@
                 document.getElementById('name').setCustomValidity('');
             }
 
-            // Überprüfen, ob alle Pflichtfelder ausgefüllt sind
+            // Pflichtfelder prüfen
             const formData = {
                 name: name,
                 age: document.getElementById('age').value,
@@ -204,7 +202,7 @@
                 return;
             }
 
-            event.preventDefault(); // Standardverhalten verhindern (wegen Ajax)
+            event.preventDefault();
 
             // LED-Status ändern
             const led = document.querySelector('.led');
@@ -224,7 +222,7 @@
                 });
         });
 
-        // Sofortiges Feedback beim Tippen
+        // Sofortiges Feedback beim Tippen (optional, aber komfortabel)
         document.getElementById('email').addEventListener('input', function() {
             const email = this.value;
             const name = document.getElementById('name').value;
