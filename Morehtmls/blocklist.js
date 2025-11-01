@@ -25,7 +25,3 @@ window.blocklistCheck = function(email, name) {
 
     return { isEmailBlocked, isUsernameBlocked };
 };
-
-        return { isEmailBlocked, isUsernameBlocked };
-    };
-});
