@@ -16,7 +16,7 @@ window.blockedUsernames = [
     // Weitere blockierte Benutzernamen hier eintragen
 ];
 
-window.blocklistCheck = function(email, name) {
+window.blocklistCheck = function (email, name) {
     email = (email || '').trim().toLowerCase();
     name = (name || '').trim().toLowerCase();
 
