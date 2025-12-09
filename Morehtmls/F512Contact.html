@@ -174,6 +174,12 @@ box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
 transform: translateY(2px);
 }
 
+.btn:disabled {
+background-color: #555;
+cursor: not-allowed;
+box-shadow: none;
+}
+
 .notification {
 position: fixed;
 top: 20px;
@@ -242,6 +248,56 @@ color: #555;
 background-color: rgba(0, 0, 0, 0.5);
 padding: 5px 10px;
 border-radius: 3px;
+}
+
+/* Hinzugefügte Stile für Checkboxen */
+.consent-group {
+background-color: rgba(255, 0, 0, 0.05);
+border: 1px solid var(--border-color);
+border-radius: 5px;
+padding: 20px;
+margin: 25px 0;
+}
+
+.consent-item {
+display: flex;
+align-items: flex-start;
+margin-bottom: 15px;
+}
+
+.consent-item:last-child {
+margin-bottom: 0;
+}
+
+.consent-item input[type="checkbox"] {
+width: auto;
+margin-right: 12px;
+margin-top: 3px;
+}
+
+.consent-item label {
+font-weight: normal;
+text-transform: none;
+letter-spacing: normal;
+color: var(--text-color);
+line-height: 1.5;
+}
+
+.consent-item a {
+color: var(--accent-color);
+text-decoration: none;
+font-weight: 600;
+}
+
+.consent-item a:hover {
+text-decoration: underline;
+}
+
+.consent-error {
+color: var(--accent-color);
+font-size: 0.9rem;
+margin-top: 10px;
+display: none;
 }
 
 @media (max-width: 768px) {
@@ -351,7 +407,20 @@ font-size: 2rem;
 <input type="text" id="references" name="references" placeholder="Name, Position und Kontaktinformationen von Referenzen">
 </div>
 
-<button type="submit" class="btn">Bewerbung einreichen</button>
+<!-- Hinzugefügte Checkboxen für Nutzungsbedingungen und Datenschutz -->
+<div class="consent-group">
+<div class="consent-item">
+<input type="checkbox" id="terms" name="terms">
+<label for="terms">Ich habe die <a href="nutzungsbedingungen.html" target="_blank">Nutzungsbedingungen</a> gelesen und stimme diesen zu.</label>
+</div>
+<div class="consent-item">
+<input type="checkbox" id="privacy" name="privacy">
+<label for="privacy">Ich habe die <a href="datenschutz.html" target="_blank">Datenschutzrichtlinien</a> gelesen und stimme diesen zu.</label>
+</div>
+<div class="consent-error" id="consentError">Sie müssen beiden Bedingungen zustimmen, um fortzufahren.</div>
+</div>
+
+<button type="submit" class="btn" id="submitBtn" disabled>Bewerbung einreichen</button>
 </form>
 </div>
 </main>
@@ -389,9 +458,38 @@ function generateUniqueId() {
 return 'SCP-' + Date.now().toString(36) + '-' + Math.random().toString(36).substr(2, 5);
 }
 
+// Hinzugefügte Funktion zur Überprüfung der Checkboxen
+function checkConsent() {
+const termsCheckbox = document.getElementById('terms');
+const privacyCheckbox = document.getElementById('privacy');
+const submitBtn = document.getElementById('submitBtn');
+const consentError = document.getElementById('consentError');
+    
+if (termsCheckbox.checked && privacyCheckbox.checked) {
+    submitBtn.disabled = false;
+    consentError.style.display = 'none';
+} else {
+    submitBtn.disabled = true;
+}
+}
+
+// Event Listener für Checkboxen hinzugefügt
+document.getElementById('terms').addEventListener('change', checkConsent);
+document.getElementById('privacy').addEventListener('change', checkConsent);
+
 // Formular-Handler
 document.getElementById('recruitment-form').addEventListener('submit', function(event) {
 event.preventDefault();
+
+// Überprüfung der Checkboxen hinzugefügt
+const termsCheckbox = document.getElementById('terms');
+const privacyCheckbox = document.getElementById('privacy');
+const consentError = document.getElementById('consentError');
+
+if (!termsCheckbox.checked || !privacyCheckbox.checked) {
+    consentError.style.display = 'block';
+    return;
+}
 
 // Formulardaten sammeln
 const formData = {
@@ -428,20 +526,23 @@ led.classList.remove('led-green');
 // E-Mail mit EmailJS senden
 emailjs.send('service_h2tya1h', 'template_ok05na4', formData)
 .then(function(response) {
-console.log('E-Mail erfolgreich gesendet', response);
-showNotification('Ihre Bewerbung wurde erfolgreich übermittelt. Wir werden uns in Kürze mit Ihnen in Verbindung setzen.', 'success');
-document.getElementById('recruitment-form').reset();
-
-// LED-Status ändern
-led.classList.add('led-green');
-
-// Nach 5 Sekunden zurück zur roten LED
-setTimeout(function() {
-led.classList.remove('led-green');
-}, 5000);
+    console.log('E-Mail erfolgreich gesendet', response);
+    showNotification('Ihre Bewerbung wurde erfolgreich übermittelt. Wir werden uns in Kürze mit Ihnen in Verbindung setzen.', 'success');
+    document.getElementById('recruitment-form').reset();
+    
+    // LED-Status ändern
+    led.classList.add('led-green');
+    
+    // Nach 5 Sekunden zurück zur roten LED
+    setTimeout(function() {
+        led.classList.remove('led-green');
+    }, 5000);
+    
+    // Submit-Button nach dem Zurücksetzen des Formulars wieder deaktivieren
+    document.getElementById('submitBtn').disabled = true;
 }, function(error) {
-console.error('Fehler beim Senden der E-Mail', error);
-showNotification('Fehler beim Senden Ihrer Bewerbung. Bitte versuchen Sie es später erneut.', 'error');
+    console.error('Fehler beim Senden der E-Mail', error);
+    showNotification('Fehler beim Senden Ihrer Bewerbung. Bitte versuchen Sie es später erneut.', 'error');
 });
 });
 
@@ -453,7 +554,7 @@ notification.className = 'notification ' + type;
 notification.classList.add('show');
 
 setTimeout(function() {
-notification.classList.remove('show');
+    notification.classList.remove('show');
 }, 5000);
 }
 
@@ -461,11 +562,11 @@ notification.classList.remove('show');
 setInterval(function() {
 const securityNotice = document.querySelector('.security-notice');
 const randomText = [
-'SECURE CONNECTION ESTABLISHED',
-'MONITORING USER ACTIVITY',
-'ENCRYPTED CHANNEL ACTIVE',
-'SECURITY PROTOCOLS ENGAGED',
-'AUTHENTICATION VERIFIED'
+    'SECURE CONNECTION ESTABLISHED',
+    'MONITORING USER ACTIVITY',
+    'ENCRYPTED CHANNEL ACTIVE',
+    'SECURITY PROTOCOLS ENGAGED',
+    'AUTHENTICATION VERIFIED'
 ];
 securityNotice.textContent = randomText[Math.floor(Math.random() * randomText.length)];
 }, 5000);
